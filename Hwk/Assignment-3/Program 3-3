@@ -1,0 +1,41 @@
+
+/* 
+ * File:   main.cpp
+ * Author: Alberto Garcia
+ * Created on July 4, 2016, 7:13 PM
+ * Purpose : display value as a small or large
+ */
+
+// System Libraries
+#include <iostream> // Input/Output Library
+
+using namespace std; //Namespace of the System Libraries
+
+
+//User Libraries
+
+
+
+//Global Constants
+
+
+
+//Function Prototypes
+
+
+
+// Execution Begins Here!
+int main(int argc, char** argv)
+{
+    //Declare Variables
+    int extra = 2;
+if (extra < 0)//extra is small
+cout << "small";
+else if (extra == 0)//extra is median
+cout << "medium";
+else//extra is large
+cout << "large";
+    //END
+  return 0;
+} 
+
