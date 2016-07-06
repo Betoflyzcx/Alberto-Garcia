@@ -1,0 +1,43 @@
+
+/* 
+ * File:   main.cpp
+ * Author: Alberto Garcia
+ * Created on July 4, 2016, 7:13 PM
+ * Purpose : Make a number display input numbers
+ */
+
+// System Libraries
+#include <iostream> // Input/Output Library
+
+using namespace std; //Namespace of the System Libraries
+
+
+//User Libraries
+
+
+
+//Global Constants
+
+
+
+//Function Prototypes
+
+
+
+// Execution Begins Here!
+int main(int argc, char** argv)
+{
+    //Declare Variables
+    int x = 200;
+    cout << "Start\n";
+    if (x < 100)//if x is more than 100
+     cout << "First Output.\n";
+    else if (x > 10)//if x is more than 10
+    cout << "Second Output.\n";
+    else//if nothing else then do this
+     cout << "Third Output.\n";
+    cout << "End\n";
+    //END
+  return 0;
+} 
+
