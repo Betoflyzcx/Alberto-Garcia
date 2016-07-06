@@ -1,0 +1,43 @@
+
+/* 
+ * File:   main.cpp
+ * Author: Alberto Garcia
+ * Created on July 4, 2016, 7:08 PM
+ * Purpose : show the structure of if statement
+ */
+
+// System Libraries
+#include <iostream> // Input/Output Library
+
+using namespace std; //Namespace of the System Libraries
+
+
+//User Libraries
+
+
+
+//Global Constants
+
+
+
+//Function Prototypes
+
+
+
+// Execution Begins Here!
+int main(int argc, char** argv)
+{
+    //Declare Variables
+    int x = 2;
+    cout << "Start\n";
+    if (x <= 3)///check if x is 3
+    if (x != 0)//check if  is not 0
+    cout << "Hello from the second if.\n";//write message
+    else
+     cout << "Hello from the else.\n";//confirm that it is in else
+    cout << "End\n";//Confirm end of program
+    cout << "Start again\n";
+    //END
+  return 0;
+} 
+
