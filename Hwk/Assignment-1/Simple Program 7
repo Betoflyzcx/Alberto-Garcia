@@ -1,0 +1,35 @@
+/* 
+ * File:   main.cpp
+ * Author: Alberto Garcia
+ * Created on July 3, 2016, 01:28 PM
+ * Purpose : Assign Variables To Specific Objects
+ */
+
+//System Libraries
+#include <iostream>//Input/Output Library
+using namespace std; //Namespace of the System Libraries
+
+
+//User Libraries
+
+
+
+//Global Constants
+
+
+
+//Function Prototypes
+
+
+//Execution Begins Here!
+int main(int argc, char** argv)
+{
+    // Declare Variables
+    int speed; // Automobile Speed  
+    int hourlyPay; // Employee Hourly Pay
+    int highestscore; // Highest Test Score
+    
+    // Exit Stage Right!
+    return 0;
+}
+
