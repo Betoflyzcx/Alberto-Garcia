@@ -1,0 +1,37 @@
+
+/* 
+ * File:   main.cpp
+ * Author: Alberto Garcia
+ * Created on July 4, 2016, 9:33 PM
+ * Purpose : Make a countdown timer
+ */
+
+// System Libraries
+#include <iostream> // Input/Output Library
+
+using namespace std; //Namespace of the System Libraries
+
+
+//User Libraries
+
+
+
+//Global Constants
+
+
+
+//Function Prototypes
+
+
+
+// Execution Begins Here!
+int main(int argc, char** argv)
+{
+    //Declare Variables
+int count = 3;
+while (count-- > 0)//subtract count by one until it is 0
+ cout << count << " ";//write count
+    //END
+  return 0;
+} 
+
