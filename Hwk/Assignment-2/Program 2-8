@@ -2,9 +2,9 @@
 /* 
  * File:   main.cpp
  * Author: Alberto Garcia
- * Created on July 5, 2016, 5:32 PM
- * Purpose: Use The Mod math Operator
- */ 
+ * Created on July 4, 2016, 5:52 PM
+ * Purpose : Find the remainder of two numbers
+ */
 
 // System Libraries
 #include <iostream> // Input/Output Library
@@ -28,10 +28,17 @@ using namespace std; //Namespace of the System Libraries
 int main(int argc, char** argv)
 {
     //Declare Variables 
-    int number = (6 % 20) * 7;
-    cout << "(6 % 20) * 7;" << number;//display math problem
+    int num1;
+    int num2;
+    cout<<"This is a simple remainder calculator"<<endl;
+    cout<<"Enter first number"<<endl;
+    cin>>num1;
+    cout<<"Enter second number"<<endl;
+    cin>>num2;
+    cout<<num1<<"/"<<num2<< " = "<<num1/num2<<" remainder "<<num1%num2<<endl;
 //End
   return 0;
 } 
+
 
 
