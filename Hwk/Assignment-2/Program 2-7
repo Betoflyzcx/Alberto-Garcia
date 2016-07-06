@@ -1,9 +1,10 @@
 
+
 /* 
  * File:   main.cpp
  * Author: Alberto Garcia
- * Created on July 4, 2016, 6:02 PM
- * Purpose : Displays a Date
+ * Created on July 4, 2016, 5:32 PM
+ * Purpose : Display equation in word format
  */
 
 // System Libraries
@@ -27,12 +28,9 @@ using namespace std; //Namespace of the System Libraries
 // Execution Begins Here!
 int main(int argc, char** argv)
 {
-    //Declare Variables
-    string month = "03";
-    string day = "04";
-    string year = "06";
-    string date = month + day + year;
-    cout << date << endl;
+    //Declare Variables 
+    int number = (1/3) * 3;
+    cout << "(1/3) * 3 is equal to " << number;//display math problem
 //End
   return 0;
 } 
