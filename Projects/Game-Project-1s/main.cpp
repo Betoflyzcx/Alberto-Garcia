@@ -1,7 +1,7 @@
 
 /* 
  * File:   main.cpp
- * Author: fernando
+ * Author: Alberto Garcia
  * Created on July 14, 2016, 4:27 PM
  * Purpose: Console Game with NeBeans IDE
  */
