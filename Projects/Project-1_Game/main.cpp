@@ -31,10 +31,25 @@ using namespace std; //Namespace of the System Libraries
 // Execution Begins Here!
 int main(int argc, char** argv) {
 	//Decalre variables
+	int x;
+	int y;
+	cin >> x;
+	cin >> y;
+
+
+	MapDraw(x, y); //Maps Length and Width
+
+
+
 
 
 
 
 	//Exit Stage Right!
     return 0;
+}
+
+void MapDraw(int x, int y)
+{
+
 }
