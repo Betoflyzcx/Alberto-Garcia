@@ -4,7 +4,7 @@
  * File:   main.cpp
  * Author: Alberto Garcia
  * Created on July 14, 2016, 4:27 PM
- * Purpose: Console Game with NeBeans IDE ['Tick-Tack-Toe']
+ * Purpose: Console Game with NetBeans IDE ['Tick-Tack-Toe']
  */
 
  // System Libraries
@@ -27,7 +27,7 @@ void MapDraw(int x, int y);
 
 void AI();
 
-void GameLogic();
+void GameLogic(); 
 
 
 // Execution Begins Here!
