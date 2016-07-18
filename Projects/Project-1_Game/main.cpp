@@ -4,7 +4,7 @@
  * File:   main.cpp
  * Author: Alberto Garcia
  * Created on July 14, 2016, 4:27 PM
- * Purpose: Console Game with NeBeans IDE
+ * Purpose: Console Game with NeBeans IDE ['Tick-Tack-Toe']
  */
 
  // System Libraries
@@ -27,14 +27,20 @@ void MapDraw(int x, int y);
 
 void AI();
 
+void GameLogic();
+
 
 // Execution Begins Here!
 int main(int argc, char** argv) {
 	//Decalre variables
 	int x;
 	int y;
-	cin >> x;
-	cin >> y;
+
+	char TrkMves[3][3]; // Track the moves player makes to draw them, and used for Logic of game
+	short Spot_Mve; // The spot in which the player decided to pick
+	short type = 0; // Decided whether the player used an 'x' or 'c'
+
+
 	short Turn;  // Player 1's && Player2's Turn  
 	short P_or_A;
 	char OpnP1; // Player 1's Option
@@ -55,7 +61,8 @@ int main(int argc, char** argv) {
 	switch (Turn) {
 	case1: // Player 1's Turn
 		cout << "It's Player 1's Turn";
-
+		cout << "What Spot do you choose: \t Choose 1-9";
+		cin >> Spot_Mve;
 
 		Turn += 1; // Go's To player 2's Turn 
 
@@ -99,6 +106,13 @@ void MapDraw(int x, int y)
 		}
 		cout << endl;
 	}
+}
+
+void GameLogic(char x, char y) // Decides when you win or lose!
+{
+	char Trk_Mves[x][y]; // passes Array 'TrkMves' through instances in parameter
+
+
 }
 
 void AI() {  // The AI LOGIC
