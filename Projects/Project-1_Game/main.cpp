@@ -23,9 +23,9 @@ using namespace std; //Namespace of the System Libraries
 
 
  //Function Prototypes
+void MapDraw(int x, int y);
 
-
-
+void AI();
 
 
 // Execution Begins Here!
@@ -53,21 +53,36 @@ int main(int argc, char** argv) {
 	cout << "Ready?\t Set \t Go !!\t\n";
 
 	switch (Turn) {
-	case1:
+	case1: // Player 1's Turn
+		cout << "It's Player 1's Turn";
+
+
+		Turn += 1; // Go's To player 2's Turn 
 
 		break;
 
-	case2:
+	case2: // Player 2's Turn
+		cout << "It's Player 2's Turn";
+		switch (P_or_A)
+		{
+
+		case 1:
+
+		case 2:
+
+		default:
+			cout << "You never entered a valid entry for which you wish to play";
+			cout << "'Player' or 'AI' \t";
+			cin >> P_or_A
+
+		}
+
+		Turn -= 1; // Go's Back to Player 1's Turn
 
 		break;
 
 
 	MapDraw(x, y); //Maps Length and Width
-
-
-
-
-
 
 
 	//Exit Stage Right!
@@ -84,4 +99,9 @@ void MapDraw(int x, int y)
 		}
 		cout << endl;
 	}
+}
+
+void AI() {  // The AI LOGIC
+
+
 }
