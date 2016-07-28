@@ -6,11 +6,11 @@
 */
 
 //System Libraries
-#include "stdafx.h"
 #include <iostream> //Input/Output Library
 #include <string>
 #include <vector>
 #include <ctime>
+#include <cstdlib>
 using namespace std; //Namespace of the System Libraries
  //User Libraries
 
@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
 			cout << "It's Player 1's Turn \n\n\n";
 			cout << "Choose a location: \t 1 2 3 \n \t 4 5 6 \n \t 7 8 9 \n \t";
 			cin >> L_input;
-			while (isdigit(L_input) == false)
+			while (isdigit(L_input) == false) // used is digit -- Look Back at it and re-change it !(Remember is-digit changes the value)
 			{
 				cout << "Enter a valid number 1-9";
 				cin >> L_input;
