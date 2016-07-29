@@ -6,11 +6,11 @@
 */
 
 //System Libraries
+#include <cstd.lib>
 #include <iostream> //Input/Output Library
 #include <string>
 #include <vector>
 #include <ctime>
-#include <cstdlib>
 using namespace std; //Namespace of the System Libraries
  //User Libraries
 
@@ -26,6 +26,7 @@ void ResetMap(vector<char> &Map, int &MapSize);
 bool CheckWin(char player, vector<string> &map);
 string GetWinner(vector<string> &map);
 bool Ai(char Opchar, vector<string> &map, char &Input);
+void BestAI(char Opchar, vector<string> &map, char &Input);
 
 //Execution Begins Here!
 int main(int argc, char** argv) {
@@ -90,9 +91,9 @@ int main(int argc, char** argv) {
 		case 1: // Player 1's Turn
 			type = 'O';
 			cout << "It's Player 1's Turn \n\n\n";
-			cout << "Choose a location: \t 1 2 3 \n \t 4 5 6 \n \t 7 8 9 \n \t";
+			cout << "Choose a location: \n\t 1 2 3 \n \t 4 5 6 \n \t 7 8 9 \n \t";
 			cin >> L_input;
-			while (isdigit(L_input) == false) // used is digit -- Look Back at it and re-change it !(Remember is-digit changes the value)
+			while (isdigit(L_input) == false)
 			{
 				cout << "Enter a valid number 1-9";
 				cin >> L_input;
@@ -102,7 +103,7 @@ int main(int argc, char** argv) {
 			while (Used[L_input] == true) // Checks if someone has already used the point
 			{
 				cout << "It appears someone has already chosen that spot..\t choose another spot\t";
-				cout << "1 2 3 \n \t 4 5 6 \n \t 7 8 9 \n \t:";
+				cout << "\n\t1 2 3 \n \t 4 5 6 \n \t 7 8 9 \n \t:";
 				cin >> L_input;
 			}
 			if (Used[L_input] == false) // If the point isn't used.... marks it used
@@ -127,7 +128,7 @@ int main(int argc, char** argv) {
 			{
 				type = 'X';
 				cout << "It's Player 2's Turn \n\n\n";
-				cout << "Choose a location: \t 1 2 3 \n \t 4 5 6 \n \t 7 8 9 \n \t";
+				cout << "Choose a location: \n\t 1 2 3 \n \t 4 5 6 \n \t 7 8 9 \n \t";
 				cin >> L_input;
 				while (isdigit(L_input) == false)
 				{
@@ -157,52 +158,40 @@ int main(int argc, char** argv) {
 				{
 
 				case 1:
-					L_input = (rand() % 8 + 1);
-
-					while (Used[L_input] == true) // Checks if someone has already used the point
-					{
-						L_input = (rand() % 8 + 1);
-					}
-					if (Used[L_input] == false) // If the point isn't used.... marks it used
-					{
-						Used[L_input] = true;
-					}
-					DrawMap(type, L_input, Map, MapSize);
-					break;
-
-				case 2:
-
-					while (Used[L_input] == true)
-					{
-						if (L_input == '1' || L_input == '3' || L_input == '7' || L_input == '9')
-						{
-							L_input = '5';
-						}
-						else
-						{
-							L_input = (rand() % 8 + 1);
-						}
-					}
-					if (Used[L_input] == false)
-					{
-						Used[L_input] = true;
-					}
-					DrawMap(type, L_input, Map, MapSize);
-					break;
-
-				case 3:
 					while (Used[L_input])
 					{
 						int rnd = (rand() % 8 + 1); L_input = '0' + rnd;
 					}
 					Used[L_input] = true;
-					if(Ai('O', map, L_input))
+					type = 'X';
+					DrawMap(type, L_input, Map, MapSize);
+					break;
+
+				case 2:
+					while (Used[L_input])
+					{
+						int rnd = (rand() % 8 + 1); L_input = '0' + rnd;
+					}
+					Used[L_input] = true;
+					if (Ai('O', map, L_input))
 					{
 						Ai('O', map, L_input);
 					}
 					cout << "rnd = " << L_input << endl;
 					type = 'X';
 					DrawMap(type, L_input, Map, MapSize);
+					break;
+
+				case 3:
+					cout << endl<<"Its player 2's turn"<<endl;
+					BestAI('O', map, L_input);
+					if (Ai('O', map, L_input))
+					{
+						Ai('O', map, L_input);
+					}
+					type = 'X';
+					DrawMap(type, L_input, Map, MapSize);
+					break;
 				}
 			}
 		}
@@ -270,12 +259,38 @@ bool Ai(char Opchar, vector<string> &map,char &Input)
 {
 	string Ochar = "";
 	Ochar.push_back(Opchar); Ochar.push_back(Opchar);
-		if (map[0] + map[1] == Ochar){Input = '3'; return true;} if (map[1] + map[2] == Ochar ){Input = '1'; return true;}	//Row 1
-		if (map[3] + map[4] == Ochar){Input = '6'; return true;} if (map[4] + map[5] == Ochar ){Input = '4'; return true;}	//Row 2
-		if (map[6] + map[7] == Ochar){Input = '9'; return true;} if (map[7] + map[8] == Ochar ){Input = '7'; return true;}	//Row 3
-		if (map[0] + map[3] == Ochar){Input = '7'; return true;} if (map[3] + map[6] == Ochar ){Input = '1'; return true;}	//Column 1
-		if (map[1] + map[4] == Ochar){Input = '8'; return true;} if (map[4] + map[7] == Ochar ){Input = '2'; return true;}	//Colomn 2
-		if (map[2] + map[5] == Ochar){Input = '9'; return true;} if (map[5] + map[8] == Ochar ){Input = '3'; return true;}	//Column 3
-		if (map[0] + map[4] == Ochar){Input = '9'; return true;} if (map[4] + map[8] == Ochar ){Input = '1'; return true;}	//Diagnol 1	
-		if (map[2] + map[4] == Ochar){Input = '7'; return true;} if (map[4] + map[6] == Ochar ){Input = '3'; return true;}	//Diagnol 2
+		if (map[0] + map[1] == Ochar && map[2] + map[2] != "XX"){Input = '3'; cout << "Input = " << Input << endl; return true;}
+		if (map[1] + map[2] == Ochar && map[0] + map[0] != "XX"){Input = '1'; return true;}	//Row 1
+		if (map[3] + map[4] == Ochar && map[5] + map[5] != "XX"){Input = '6'; return true;}
+		if (map[4] + map[5] == Ochar && map[3] + map[3] != "XX"){Input = '4'; return true;}	//Row 2
+		if (map[6] + map[7] == Ochar && map[8] + map[8] != "XX"){Input = '9'; return true;}
+		if (map[7] + map[8] == Ochar && map[6] + map[6] != "XX"){Input = '7'; return true;}	//Row 3
+		if (map[0] + map[3] == Ochar && map[6] + map[6] != "XX"){Input = '7'; return true;}
+		if (map[3] + map[6] == Ochar && map[0] + map[0] != "XX"){Input = '1'; return true;}	//Column 1
+		if (map[1] + map[4] == Ochar && map[7] + map[7] != "XX"){Input = '8'; return true;}
+		if (map[4] + map[7] == Ochar && map[1] + map[1] != "XX"){Input = '2'; return true;}	//Colomn 2
+		if (map[2] + map[5] == Ochar && map[8] + map[8] != "XX"){Input = '9'; return true;}
+		if (map[5] + map[8] == Ochar && map[1] + map[1] != "XX"){Input = '3'; return true;}	//Column 3
+		if (map[0] + map[4] == Ochar && map[8] + map[8] != "XX"){Input = '9'; return true;}
+		if (map[4] + map[8] == Ochar && map[0] + map[0] != "XX"){Input = '1'; return true;}	//Diagnol 1	
+		if (map[2] + map[4] == Ochar && map[6] + map[6] != "XX"){Input = '7'; return true;}
+		if (map[4] + map[6] == Ochar && map[2] + map[2] != "XX"){Input = '3'; return true;}	//Diagnol 2
+}
+void BestAI(char Opchar, vector<string> &map, char &Input)
+{
+	string Ochar = "";
+	Ochar.push_back(Opchar);
+	if (map[4] != "X")
+	{
+		if (map[0] == Ochar) { Input = '5'; } if (map[2] == Ochar) { Input = '5'; }
+		if (map[6] == Ochar) { Input = '5'; } if (map[8] == Ochar) { Input = '5'; }
+	}
+	if (map[3] == Ochar) { Input = '1'; } if (map[5] == Ochar) { Input = '3'; }
+	if (map[4] == Ochar) { Input = '1'; }
+	int _input = Input -'0';
+	if (map[4] == "X") { if (Input == '3' || Input == '9') {Input = '0' +( _input - 1);}
+	if (Input == '7' || Input == '1') { Input = '0' + (_input + 1);if(map[_input] != "+")Input = '0' + _input; }
+	if (Input == '1' || Input == '3') { Input = '0' + (_input + 3); }//Input not resetting after alteration 
+	if (Input == '7' || Input == '9') { Input = '0' + (_input - 3); cout << "input = " << Input << endl;
+	}}
 }
