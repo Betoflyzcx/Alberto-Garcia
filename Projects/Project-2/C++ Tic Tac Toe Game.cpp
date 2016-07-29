@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include <iomanip> // used for date and time
 using namespace std; //Namespace of the System Libraries
  //User Libraries
 
@@ -24,13 +25,17 @@ void DrawMap(char p_char, char Input, vector<char> &Map, int &MapSize);
 void Gme_Stat(char L_input, char type);
 void ResetMap(vector<char> &Map, int &MapSize);
 bool CheckWin(char player, vector<string> &map);
-string GetWinner(vector<string> &map);
+string GetWinner(vector<string> &map, int & , int & , int &);
 bool Ai(char Opchar, vector<string> &map, char &Input);
 void BestAI(char Opchar, vector<string> &map, char &Input);
 
 //Execution Begins Here!
 int main(int argc, char** argv) {
-	char Board[9] = { ' ',' ',' ',' ',' ',' ',' ',' ',' ' };
+	string Data[3][3];
+	Data[0][0] = { "P1 Wins: " }; Data[0][2] = get_time();
+	Data[1][0] = { "P2 Wins :" }; Data[1][2] = get_time();
+	Data[2][0] = { "AI Wins :" }; Data[2][2] = get_time();
+	int p1_wins,p2_wins,AI_wins;
 	bool Used[9];
 	char type;
 	string Oppnnt;
@@ -201,9 +206,20 @@ int main(int argc, char** argv) {
 		{
 			map[i].push_back(Map[i]);//set the string map equal to the char map 
 		}
-		if (GetWinner(map) != "None")//There is a winner
+		if (GetWinner(map, p1_wins, p2_wins, AI_wins) != "None")//There is a winner
 		{
 			cout << endl << GetWinner(map) << " Wins!" << endl;//Write the winner to screen
+		}
+		Data[0][1] = p1_wins+": ";
+		Data[1][1] = p2_wins+": ";
+		Data[2][1] = AI_wins+": ";
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				cout << Data[i][j];
+			}
+			cout << endl;
 		}
 	}
 
@@ -249,10 +265,10 @@ bool CheckWin(char player, vector<string> &map)//Checks for a winner
 		|| (map[0] + map[4] + map[8] == Win)	//Diagnol 1
 		|| (map[2] + map[4] + map[6] == Win));	//Diagnol 2
 }
-string GetWinner(vector<string> &map)//Grab a winner and return string 
+string GetWinner(vector<string> &map, int &p1_wins, int &p2_wins, int &AI_wins))//Grab a winner and return string 
 {
-	if (CheckWin('O', map))	return "Player 1";//if a winner is O return player 1
-	if (CheckWin('X', map)) return "Player 2";//if winner is X return player 2
+	if (CheckWin('O', map))	p1++ ;return "Player 1";//if a winner is O return player 1
+	if (CheckWin('X', map)) p2 ++;return "Player 2";//if winner is X return player 2
 	else return "None";//if there is no winner return non
 }
 bool Ai(char Opchar, vector<string> &map,char &Input)
