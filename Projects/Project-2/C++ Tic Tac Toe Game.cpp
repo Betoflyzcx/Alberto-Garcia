@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 	string Data[2][2];
 	Data[0][0] = { "P1 Wins: " };
 	Data[1][0] = { "P2 Wins: " };
-	int p1_wins=0, p2_wins=0, AI_wins=0;
+	int p1_wins = 0, p2_wins = 0, AI_wins = 0;
 	int input = 0;
 	int timesPlayed = 0;
 	bool Used[9];
@@ -45,6 +45,7 @@ int main(int argc, char** argv) {
 	char L_input;
 	short turn = 1;
 	bool Chk = false;
+	bool End = false;
 	vector<char> Map(9);//Map for drawing tic tac toe
 	vector<string> map(9);// a temperarely stored map used for conversion of char to string
 	ResetMap(Map);
@@ -108,7 +109,7 @@ int main(int argc, char** argv) {
 			}
 		}
 	}
-	while (true)
+	while (End == false)
 	{
 		switch (turn)
 		{
@@ -157,8 +158,22 @@ int main(int argc, char** argv) {
 					}
 					cout << endl;
 				}
+				End = true;
 			}
-
+			if (GetWinner(map) == "None")
+			{
+				for (int i = 0; i < Map.size(); i++)
+				{
+					if (Map[i] == '+') { break; }
+					if (Map[8] != '+')
+					{
+						cout << "Nobody wins!" << endl;
+						End = true;
+					}
+				}
+			}
+			if (End == false)
+			{
 		case 2: //  Player 2
 			if (Oppnnt == "1") // checks if the user is facing another player
 			{
@@ -212,7 +227,7 @@ int main(int argc, char** argv) {
 					cout << endl << "Its player 2's turn" << endl;//its player 2' turn
 					input = L_input - '0';//convert to int
 					//if spot isn't choosen already
-					while (Map[input -1] == 'O')
+					while (Map[input - 1] == 'O')
 					{
 						//choose the spot
 						int rnd = (rand() % 8 + 1); L_input = '0' + rnd; input = L_input - '0';//input used for Map[number]
@@ -227,7 +242,7 @@ int main(int argc, char** argv) {
 					break;
 
 				case 3:
-					cout << endl<<"Its player 2's turn"<<endl;//its player 2' turn
+					cout << endl << "Its player 2's turn" << endl;//its player 2' turn
 					BestAI('O', map, L_input);//what is the best move?
 
 					//if player has 2 in a row block him
@@ -240,29 +255,31 @@ int main(int argc, char** argv) {
 					break;
 				}
 			}
-		}
-		map.clear();//empty map
-		map.resize(9);//resize map to 0
-		for (int i = 0; i < 9; i++)//loop the map length
-		{
-			map[i].push_back(Map[i]);//set the string map equal to the char map 
-		}
-		if (GetWinner(map) != "None")//There is a winner
-		{
-			cout << endl << GetWinner(map) << " Wins!" << endl;//Write the winner to screen
-			if (GetWinner(map) == "Player 1") p1_wins++;  Data[0][1] = to_string(p1_wins);//Write player 1's wins in this round
-			if (GetWinner(map) == "Player 2") p2_wins++;  Data[1][1] = to_string(p2_wins);//Write Player 2's wins in this round
-			for (int i = 0; i < 2; i++)
+			map.clear();//empty map
+			map.resize(9);//resize map to 0
+			for (int i = 0; i < 9; i++)//loop the map length
 			{
-				for (int j = 0; j < 2; j++)
-				{
-					cout << setw(15) << Data[i][j];
-				}
-				cout << endl;
+				map[i].push_back(Map[i]);//set the string map equal to the char map 
 			}
-		}
+			if (GetWinner(map) != "None")//There is a winner
+			{
+				cout << endl << GetWinner(map) << " Wins!" << endl;//Write the winner to screen
+				if (GetWinner(map) == "Player 1") p1_wins++;  Data[0][1] = to_string(p1_wins);//Write player 1's wins in this round
+				if (GetWinner(map) == "Player 2") p2_wins++;  Data[1][1] = to_string(p2_wins);//Write Player 2's wins in this round
+				for (int i = 0; i < 2; i++)
+				{
+					for (int j = 0; j < 2; j++)
+					{
+						cout << setw(15) << Data[i][j];
+					}
+					cout << endl;
+				}
+				End == true;
+			}
 
-	}
+		}
+		}
+}
 
 	//Exit Stage Right!
 	return 0;
