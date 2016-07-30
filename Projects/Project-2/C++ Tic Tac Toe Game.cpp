@@ -6,12 +6,12 @@
 */
 
 //System Libraries
-#include <cstd.lib>
+#include "stdafx.h"
 #include <iostream> //Input/Output Library
 #include <string>
 #include <vector>
 #include <ctime>
-#include <iomanip> // used for date and time
+#include <iomanip> // 
 using namespace std; //Namespace of the System Libraries
  //User Libraries
 
@@ -25,17 +25,17 @@ void DrawMap(char p_char, char Input, vector<char> &Map, int &MapSize);
 void Gme_Stat(char L_input, char type);
 void ResetMap(vector<char> &Map, int &MapSize);
 bool CheckWin(char player, vector<string> &map);
-string GetWinner(vector<string> &map, int & , int & , int &);
+string GetWinner(vector<string> &map);
 bool Ai(char Opchar, vector<string> &map, char &Input);
 void BestAI(char Opchar, vector<string> &map, char &Input);
 
 //Execution Begins Here!
 int main(int argc, char** argv) {
-	string Data[3][3];
-	Data[0][0] = { "P1 Wins: " }; Data[0][2] = get_time();
-	Data[1][0] = { "P2 Wins :" }; Data[1][2] = get_time();
-	Data[2][0] = { "AI Wins :" }; Data[2][2] = get_time();
-	int p1_wins,p2_wins,AI_wins;
+	string Data[2][2];
+	Data[0][0] = { "P1 Wins: " };
+	Data[1][0] = { "P2 Wins: " };
+	int p1_wins=0, p2_wins=0, AI_wins=0;
+	int input = 0;
 	bool Used[9];
 	char type;
 	string Oppnnt;
@@ -126,6 +126,16 @@ int main(int argc, char** argv) {
 			if (GetWinner(map) != "None")//There is a winner
 			{
 				cout << endl << GetWinner(map) << " Wins!" << endl;//Write the winner to screen
+				if (GetWinner(map) == "Player 1") p1_wins++;  Data[0][1] = to_string(p1_wins);
+				if (GetWinner(map) == "Player 2") p2_wins++;  Data[1][1] = to_string(p2_wins);
+				for (int i = 0; i < 2; i++)
+				{
+					for (int j = 0; j < 2; j++)
+					{
+						cout << setw(15) << Data[i][j];
+					}
+					cout << endl;
+				}
 			}
 
 		case 2: //  Player 2
@@ -176,6 +186,7 @@ int main(int argc, char** argv) {
 					while (Used[L_input])
 					{
 						int rnd = (rand() % 8 + 1); L_input = '0' + rnd;
+						cout << "Rand = " << rnd << endl;
 					}
 					Used[L_input] = true;
 					if (Ai('O', map, L_input))
@@ -206,21 +217,21 @@ int main(int argc, char** argv) {
 		{
 			map[i].push_back(Map[i]);//set the string map equal to the char map 
 		}
-		if (GetWinner(map, p1_wins, p2_wins, AI_wins) != "None")//There is a winner
+		if (GetWinner(map) != "None")//There is a winner
 		{
 			cout << endl << GetWinner(map) << " Wins!" << endl;//Write the winner to screen
-		}
-		Data[0][1] = p1_wins+": ";
-		Data[1][1] = p2_wins+": ";
-		Data[2][1] = AI_wins+": ";
-		for (int i = 0; i < 3; i++)
-		{
-			for (int j = 0; j < 3; j++)
+			if (GetWinner(map) == "Player 1") p1_wins++;  Data[0][1] = to_string(p1_wins);
+			if (GetWinner(map) == "Player 2") p2_wins++;  Data[1][1] = to_string(p2_wins);
+			for (int i = 0; i < 2; i++)
 			{
-				cout << Data[i][j];
+				for (int j = 0; j < 2; j++)
+				{
+					cout << setw(15) << Data[i][j];
+				}
+				cout << endl;
 			}
-			cout << endl;
 		}
+
 	}
 
 	//Exit Stage Right!
@@ -265,10 +276,10 @@ bool CheckWin(char player, vector<string> &map)//Checks for a winner
 		|| (map[0] + map[4] + map[8] == Win)	//Diagnol 1
 		|| (map[2] + map[4] + map[6] == Win));	//Diagnol 2
 }
-string GetWinner(vector<string> &map, int &p1_wins, int &p2_wins, int &AI_wins))//Grab a winner and return string 
+string GetWinner(vector<string> &map)//Grab a winner and return string 
 {
-	if (CheckWin('O', map))	p1++ ;return "Player 1";//if a winner is O return player 1
-	if (CheckWin('X', map)) p2 ++;return "Player 2";//if winner is X return player 2
+	if (CheckWin('O', map)) { return "Player 1"; }//if a winner is O return player 1
+	if (CheckWin('X', map)) { return "Player 2"; }//if winner is X return player 2
 	else return "None";//if there is no winner return non
 }
 bool Ai(char Opchar, vector<string> &map,char &Input)
@@ -296,6 +307,7 @@ void BestAI(char Opchar, vector<string> &map, char &Input)
 {
 	string Ochar = "";
 	Ochar.push_back(Opchar);
+	if (map[4] != "X" && map[4] != "O") { Input = '5'; }
 	if (map[4] != "X")
 	{
 		if (map[0] == Ochar) { Input = '5'; } if (map[2] == Ochar) { Input = '5'; }
@@ -304,9 +316,8 @@ void BestAI(char Opchar, vector<string> &map, char &Input)
 	if (map[3] == Ochar) { Input = '1'; } if (map[5] == Ochar) { Input = '3'; }
 	if (map[4] == Ochar) { Input = '1'; }
 	int _input = Input -'0';
-	if (map[4] == "X") { if (Input == '3' || Input == '9') {Input = '0' +( _input - 1);}
+    if (Input == '3' || Input == '9') {Input = '0' +( _input - 1);}
 	if (Input == '7' || Input == '1') { Input = '0' + (_input + 1);if(map[_input] != "+")Input = '0' + _input; }
-	if (Input == '1' || Input == '3') { Input = '0' + (_input + 3); }//Input not resetting after alteration 
-	if (Input == '7' || Input == '9') { Input = '0' + (_input - 3); cout << "input = " << Input << endl;
-	}}
+	if (Input == '1' || Input == '3') { Input = '0' + (_input + 3); }
+	if (Input == '7' || Input == '9') { Input = '0' + (_input - 3); } cout << "input = " << Input << endl;//****AI TAKES PLAYER'S PREVIOUS SPOT IF THEIR IS NO AVAILABLE MOVE
 }
